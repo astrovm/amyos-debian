@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Basic live-build configuration
+# Usage: ./auto/config
+# Adjust LB_* vars as needed.
+
+LB_DISTRIBUTION="trixie"
+LB_ARCHITECTURES="amd64"
+LB_MODE="debian"
+LB_MIRROR_BOOTSTRAP="http://deb.debian.org/debian/"
+LB_MIRROR_CHROOT_SECURITY="http://security.debian.org/debian-security"
+
+# Create config directory if not exists
+mkdir -p config
+
+# Initialize live-build config
+lb config \
+  --mode ${LB_MODE} \
+  --distribution ${LB_DISTRIBUTION} \
+  --architectures ${LB_ARCHITECTURES} \
+  --apt-recommends true \
+  --binary-images iso-hybrid \
+  --iso-application "AmyOS Debian" \
+  --iso-volume "AmyOS-${LB_DISTRIBUTION}" \
+  --debian-installer live \
+  --mirror-bootstrap ${LB_MIRROR_BOOTSTRAP} \
+  --mirror-chroot-security ${LB_MIRROR_CHROOT_SECURITY}
+
+echo "Configured live-build for ${LB_DISTRIBUTION} (${LB_ARCHITECTURES})."

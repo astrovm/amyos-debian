@@ -1,0 +1,3 @@
+# live-build config snippets. Variables here override defaults.
+LB_DISTRIBUTION="trixie"
+LB_ARCHITECTURES="amd64"

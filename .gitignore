@@ -1,0 +1,14 @@
+# live-build artifacts
+build/
+cache/
+.chroot/
+.binary/
+.debian-installer/
+.iso/
+.temp/
+.stage/
+.build/
+live-image-*.hybrid.iso
+
+# macOS
+.DS_Store

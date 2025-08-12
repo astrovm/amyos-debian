@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Clean build artifacts
+# Usage: ./auto/clean
+
+lb clean --purge
+rm -rf cache .build

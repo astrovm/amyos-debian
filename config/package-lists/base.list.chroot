@@ -1,0 +1,13 @@
+# Base packages to include in the chroot
+# Lines starting with # are comments
+
+# essentials
+sudo
+vim-tiny
+curl
+wget
+ca-certificates
+
+# live conveniences
+net-tools
+less
