@@ -17,3 +17,5 @@ calamares
 calamares-settings-debian
 btrfs-progs
 cryptsetup
+refind
+efibootmgr
