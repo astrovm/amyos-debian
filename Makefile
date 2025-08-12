@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: all config build clean docker-env docker-shell docker-build
+.PHONY: all config build clean docker-env docker-shell docker-build doctor docker-doctor
 
 all: build
 
@@ -15,6 +15,17 @@ build:
 clean:
 	chmod +x auto/clean
 	./auto/clean
+
+doctor: ## Check local environment tools
+	@echo "Host info:"
+	uname -a || true
+	@echo
+	@echo "Tooling:"
+	which lb || true
+	lb --version || true
+	docker --version || true
+	@echo
+	@echo "User: $$(id -u):$$(id -g)"
 
 docker-shell: ## Start an interactive shell in the build container
 	@echo "Starting interactive shell inside Docker (Debian) for macOS compatibility..."
@@ -36,3 +47,12 @@ docker-build: ## Run config+build inside the container non-interactively
 	  -w /workspace \
 	  --privileged \
 	  amyos-livebuild bash -lc "make config && make build && chown -R $$LOCAL_UID:$$LOCAL_GID /workspace"
+
+docker-doctor: ## Validate live-build inside container
+	@echo "Checking live-build environment inside Docker..."
+	docker build -t amyos-livebuild -f Dockerfile .
+	docker run --rm -it \
+	  -v $(PWD):/workspace \
+	  -w /workspace \
+	  --privileged \
+	  amyos-livebuild bash -lc 'set -e; lb --version; echo; echo "Loop device support:"; losetup -f || true; echo; echo "xorriso:"; xorriso -version || true'

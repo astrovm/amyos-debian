@@ -1,3 +1,6 @@
-# live-build config snippets. Variables here override defaults.
-LB_DISTRIBUTION="trixie"
-LB_ARCHITECTURES="amd64"
+#!/usr/bin/env bash
+# live-build config snippets. Variables here override defaults, sourced by auto/config.
+export LB_DISTRIBUTION="trixie"
+export LB_ARCHITECTURES="amd64"
+# Uncomment to customize Debian archive areas (for firmware)
+# LB_ARCHIVE_AREAS="main contrib non-free-firmware"

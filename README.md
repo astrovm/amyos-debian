@@ -34,7 +34,8 @@ If building directly on Debian/Ubuntu with privileges:
 
 ```sh
 sudo apt-get update && sudo apt-get install -y \
-  live-build cpio xorriso squashfs-tools syslinux isolinux dosfstools
+  live-build cpio xorriso squashfs-tools syslinux isolinux dosfstools \
+  grub-pc-bin grub-efi-amd64-bin mtools
 
 make config
 sudo make build
@@ -52,7 +53,7 @@ sudo make build
 - Packages: edit `config/package-lists/base.list.chroot`
 - Files in live system: put under `config/includes.chroot` (e.g., `/etc/` files)
 - Hooks: scripts under `config/hooks/normal/*.hook.chroot` run during build
-- Overrides: set variables in `config/bootstrap` to override defaults in `auto/config`
+- Overrides: set variables in `config/bootstrap` to override defaults in `auto/config` (e.g., `LB_DISTRIBUTION`, `LB_ARCHITECTURES`, `LB_ARCHIVE_AREAS`). Default areas include `main contrib non-free-firmware` for broader hardware support.
 
 ## Clean
 
@@ -64,3 +65,4 @@ make clean
 
 - Run the container with `--privileged` (Makefile does this) since live-build needs loop devices.
 - Default release: trixie (Debian 13), arch: amd64. Tweak in `auto/config` or `config/bootstrap`.
+ - UEFI/BIOS: The Docker image and host deps include GRUB tooling to produce hybrid ISO images bootable on BIOS and UEFI.
