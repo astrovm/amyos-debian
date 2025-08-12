@@ -11,3 +11,9 @@ ca-certificates
 # live conveniences
 net-tools
 less
+
+# calamares installer + deps for btrfs/encryption
+calamares
+calamares-settings-debian
+btrfs-progs
+cryptsetup
