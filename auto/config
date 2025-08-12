@@ -5,16 +5,26 @@ set -euo pipefail
 # Usage: ./auto/config
 # Adjust LB_* vars as needed.
 
+# Defaults (can be overridden by config/bootstrap)
 LB_DISTRIBUTION="trixie"
 LB_ARCHITECTURES="amd64"
 LB_MODE="debian"
 LB_MIRROR_BOOTSTRAP="http://deb.debian.org/debian/"
 LB_MIRROR_CHROOT_SECURITY="http://security.debian.org/debian-security"
 
+# Optional local overrides
+if [[ -f config/bootstrap ]]; then
+  # shellcheck disable=SC1091
+  source config/bootstrap
+fi
+
 # Create config directory if not exists
 mkdir -p config
 
 # Initialize live-build config
+# Ensure hooks are executable (live-build sometimes requires it)
+find config/hooks -type f -name "*.hook.chroot" -exec chmod +x {} + || true
+
 lb config \
   --mode ${LB_MODE} \
   --distribution ${LB_DISTRIBUTION} \

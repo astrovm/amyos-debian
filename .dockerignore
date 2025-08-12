@@ -1,0 +1,16 @@
+# Ignore build artifacts and large files from Docker context
+build/
+cache/
+.chroot/
+.binary/
+.debian-installer/
+.iso/
+.temp/
+.stage/
+.build/
+live-image-*.hybrid.iso
+
+# Git and editor cruft
+.git
+.gitignore
+.DS_Store

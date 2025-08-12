@@ -1,0 +1,3 @@
+Place files here mirroring their target absolute paths inside the live system root.
+Example:
+  config/includes.chroot/etc/motd      -> /etc/motd inside the live ISO

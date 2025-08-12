@@ -6,12 +6,25 @@ Minimal Debian live-build setup to produce an ISO.
 
 - Build in Docker to avoid host quirks and get required privileges.
 
+Optional: build the Docker image once (other targets may do this automatically):
+
 ```sh
-# one-time: build the build environment
 make docker-env
-# inside the container shell:
-make config
-make build
+```
+
+Interactive build inside a container shell:
+
+```sh
+make docker-shell
+# inside the container:
+make config && make build
+# resulting ISO will be at project root, e.g. live-image-amd64.hybrid.iso
+```
+
+Or one-shot non-interactive build:
+
+```sh
+make docker-build
 # resulting ISO will be at project root, e.g. live-image-amd64.hybrid.iso
 ```
 
@@ -39,6 +52,7 @@ sudo make build
 - Packages: edit `config/package-lists/base.list.chroot`
 - Files in live system: put under `config/includes.chroot` (e.g., `/etc/` files)
 - Hooks: scripts under `config/hooks/normal/*.hook.chroot` run during build
+- Overrides: set variables in `config/bootstrap` to override defaults in `auto/config`
 
 ## Clean
 
